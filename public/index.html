@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Server Dashboard - Monitor system stats and access services"
+    />
+    <title>Server Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Header -->
+      <header class="header">
+        <div class="clock-section">
+          <h1 class="time" id="clock-time">--:-- --</h1>
+          <p class="date" id="clock-date">Loading...</p>
+        </div>
+
+        <div class="header-image-box">
+          <img src="bg.png" alt="Dashboard Graphic" />
+        </div>
+      </header>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <div class="search-bar">
+          <svg
+            class="search-icon"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Quick launch..."
+            autocomplete="off"
+          />
+          <div class="search-hints">
+            <span class="kbd-hint">⌘K</span>
+            <button
+              class="theme-toggle"
+              id="theme-toggle"
+              aria-label="Toggle dark mode"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bookmark Sections -->
+      <main class="bookmarks" id="bookmarks">
+        <!-- CALENDAR -->
+        <section class="calendar-widget" id="calendar-widget">
+          <div class="section-header">
+            <span class="section-label">CALENDAR</span>
+            <div class="section-line"></div>
+            <button
+              class="cal-manage-btn"
+              id="cal-manage-btn"
+              title="Manage feeds"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="cal-container">
+            <!-- Month Grid -->
+            <div class="cal-month">
+              <div class="cal-nav">
+                <button
+                  class="cal-nav-btn"
+                  id="cal-prev"
+                  aria-label="Previous month"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+                <span class="cal-month-label" id="cal-month-label"
+                  >March 2026</span
+                >
+                <button
+                  class="cal-nav-btn"
+                  id="cal-next"
+                  aria-label="Next month"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              </div>
+              <div class="cal-weekdays">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span
+                ><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div class="cal-days" id="cal-days">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Agenda -->
+            <div class="cal-agenda">
+              <div class="cal-agenda-header">
+                <span class="cal-agenda-title">Upcoming</span>
+              </div>
+              <div class="cal-agenda-list" id="cal-agenda-list">
+                <div class="cal-empty-state" id="cal-empty-state">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="opacity: 0.3"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  <p>No events</p>
+                  <p class="cal-empty-hint">Add an ICS feed to get started</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Feed Management Modal -->
+        <div class="cal-modal-overlay" id="cal-modal-overlay">
+          <div class="cal-modal">
+            <div class="cal-modal-header">
+              <h3>Calendar Feeds</h3>
+              <button
+                class="cal-modal-close"
+                id="cal-modal-close"
+                aria-label="Close"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+            <div class="cal-modal-body">
+              <div class="cal-feed-form">
+                <input
+                  type="text"
+                  id="feed-url-input"
+                  placeholder="ICS feed URL..."
+                  class="cal-input"
+                />
+                <input
+                  type="text"
+                  id="feed-name-input"
+                  placeholder="Name (optional)"
+                  class="cal-input cal-input-sm"
+                />
+                <div class="cal-feed-form-row">
+                  <input
+                    type="color"
+                    id="feed-color-input"
+                    value="#3db4f2"
+                    class="cal-color-input"
+                  />
+                  <button class="cal-add-btn" id="cal-add-feed">
+                    Add Feed
+                  </button>
+                </div>
+              </div>
+              <div class="cal-feed-list" id="cal-feed-list">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROTON -->
+        <section class="bookmark-section" data-category="proton">
+          <div class="section-header">
+            <span class="section-label">PROTON</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://mail.proton.me/inbox"
+              target="_blank"
+              class="service-card"
+              data-name="Proton Mail"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </div>
+              <span class="card-name">Mail</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://drive.proton.me/"
+              target="_blank"
+              class="service-card"
+              data-name="Proton Storage"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+              </div>
+              <span class="card-name">Storage</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- GOOGLE -->
+        <section class="bookmark-section" data-category="google">
+          <div class="section-header">
+            <span class="section-label">GOOGLE</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://mail.google.com/mail/inbox"
+              target="_blank"
+              class="service-card"
+              data-name="Gmail"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </div>
+              <span class="card-name">Mail</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://drive.google.com/drive/home"
+              target="_blank"
+              class="service-card"
+              data-name="Google Drive"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+              </div>
+              <span class="card-name">Storage</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- UNIVERSITY -->
+        <section class="bookmark-section" data-category="university">
+          <div class="section-header">
+            <span class="section-label">UNIVERSITY</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://udel.instructure.com"
+              target="_blank"
+              class="service-card"
+              data-name="Canvas"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+              </div>
+              <span class="card-name">Canvas</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://my.udel.edu"
+              target="_blank"
+              class="service-card"
+              data-name="UDSIS"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c0 2 4 3 6 3s6-1 6-3v-5" />
+                </svg>
+              </div>
+              <span class="card-name">UDSIS</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- LEARNING -->
+        <section class="bookmark-section" data-category="learning">
+          <div class="section-header">
+            <span class="section-label">LEARNING</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://www.renshuu.org/me"
+              target="_blank"
+              class="service-card"
+              data-name="Renshuu"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="m8 12 2-6 2 6M9 11h2" />
+                  <path d="M16 8v8" />
+                </svg>
+              </div>
+              <span class="card-name">Renshuu</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://neetcode.io/practice"
+              target="_blank"
+              class="service-card"
+              data-name="Neetcode"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+              </div>
+              <span class="card-name">Neetcode</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- LLM -->
+        <section class="bookmark-section" data-category="llm">
+          <div class="section-header">
+            <span class="section-label">LLM</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://claude.ai"
+              target="_blank"
+              class="service-card"
+              data-name="Claude"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 2a4 4 0 0 0-4 4v2H6a4 4 0 0 0 0 8h1a4 4 0 0 0 3 3.87V22h4v-2.13A4 4 0 0 0 17 16h1a4 4 0 0 0 0-8h-2V6a4 4 0 0 0-4-4z"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">Claude</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://gemini.google.com/app"
+              target="_blank"
+              class="service-card"
+              data-name="Gemini"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                  <path d="M2 17l10 5 10-5" />
+                  <path d="M2 12l10 5 10-5" />
+                </svg>
+              </div>
+              <span class="card-name">Gemini</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- IMPORTANT -->
+        <section class="bookmark-section" data-category="important">
+          <div class="section-header">
+            <span class="section-label">IMPORTANT</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://github.com/jmartgmz"
+              target="_blank"
+              class="service-card"
+              data-name="Github"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">Github</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://secure.indeed.com"
+              target="_blank"
+              class="service-card"
+              data-name="Indeed"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+              </div>
+              <span class="card-name">Indeed</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- TRACKING -->
+        <section class="bookmark-section" data-category="tracking">
+          <div class="section-header">
+            <span class="section-label">TRACKING</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://anilist.co/"
+              target="_blank"
+              class="service-card"
+              data-name="AniList"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polygon points="23 7 16 12 23 17 23 7" />
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                </svg>
+              </div>
+              <span class="card-name">AniList</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://letterboxd.com/"
+              target="_blank"
+              class="service-card"
+              data-name="Letterboxd"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect
+                    x="2"
+                    y="2"
+                    width="20"
+                    height="20"
+                    rx="2.18"
+                    ry="2.18"
+                  />
+                  <line x1="7" y1="2" x2="7" y2="22" />
+                  <line x1="17" y1="2" x2="17" y2="22" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <line x1="2" y1="7" x2="7" y2="7" />
+                  <line x1="2" y1="17" x2="7" y2="17" />
+                  <line x1="17" y1="17" x2="22" y2="17" />
+                  <line x1="17" y1="7" x2="22" y2="7" />
+                </svg>
+              </div>
+              <span class="card-name">Letterboxd</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://retroachievements.org/"
+              target="_blank"
+              class="service-card"
+              data-name="RetroAchieve"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="8" r="7" />
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                </svg>
+              </div>
+              <span class="card-name">RetroAchieve</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- IMPROVEMENT -->
+        <section class="bookmark-section" data-category="improvement">
+          <div class="section-header">
+            <span class="section-label">IMPROVEMENT</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://www.youtube.com/"
+              target="_blank"
+              class="service-card"
+              data-name="Youtube"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"
+                  />
+                  <polygon
+                    points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">Youtube</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://neetcode.io/practice"
+              target="_blank"
+              class="service-card"
+              data-name="Neetcode"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+              </div>
+              <span class="card-name">Neetcode</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://monkeytype.com/"
+              target="_blank"
+              class="service-card"
+              data-name="Monkeytype"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+                  <path
+                    d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">Monkeytype</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        </section>
+        <section class="services-section">
+          <div class="section-header">
+            <span class="section-label">SERVICES</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="cards-grid">
+            <a
+              href="https://dash.karyio.com/"
+              target="_blank"
+              class="service-card"
+              data-name="Discord Bot"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                  <rect x="9" y="9" width="6" height="6" />
+                  <line x1="9" y1="1" x2="9" y2="4" />
+                  <line x1="15" y1="1" x2="15" y2="4" />
+                  <line x1="9" y1="20" x2="9" y2="23" />
+                  <line x1="15" y1="20" x2="15" y2="23" />
+                  <line x1="20" y1="9" x2="23" y2="9" />
+                  <line x1="20" y1="14" x2="23" y2="14" />
+                  <line x1="1" y1="9" x2="4" y2="9" />
+                  <line x1="1" y1="14" x2="4" y2="14" />
+                </svg>
+              </div>
+              <span class="card-name">Discord Bot</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://sync.karyio.com/"
+              target="_blank"
+              class="service-card"
+              data-name="Syncthing"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="23 4 23 10 17 10" />
+                  <polyline points="1 20 1 14 7 14" />
+                  <path
+                    d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
+                  />
+                </svg>
+              </div>
+              <span class="card-name">Syncthing</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+            <a
+              href="https://files.karyio.com/"
+              target="_blank"
+              class="service-card"
+              data-name="Filebrowser"
+            >
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                  <line x1="6" y1="6" x2="6.01" y2="6" />
+                  <line x1="6" y1="18" x2="6.01" y2="18" />
+                </svg>
+              </div>
+              <span class="card-name">Filebrowser</span>
+              <div class="card-status">
+                <span class="status-dot"></span>RUNNING
+              </div>
+            </a>
+          </div>
+        <div class="stats-section footer-stats">
+          <div class="stat-badge">
+            <div class="stat-icon cpu-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <rect x="9" y="9" width="6" height="6" />
+                <path
+                  d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"
+                />
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">CPU LOAD</span>
+              <span class="stat-value" id="cpu-load">--%</span>
+            </div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-icon ram-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="6" width="20" height="12" rx="2" />
+                <path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01" />
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">RAM USAGE</span>
+              <span class="stat-value" id="ram-usage">--%</span>
+            </div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-icon temp-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" />
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">CORE TEMP</span>
+              <span class="stat-value" id="core-temp">--°C</span>
+            </div>
+          </div>
+
+          <!-- New Stats -->
+          <div class="stat-badge">
+            <div class="stat-icon uptime-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">UPTIME</span>
+              <span class="stat-value" id="uptime">--</span>
+            </div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-icon disk-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="22" y1="12" x2="2" y2="12" />
+                <path
+                  d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"
+                />
+                <line x1="6" y1="16" x2="6.01" y2="16" />
+                <line x1="10" y1="16" x2="10.01" y2="16" />
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">DISK USAGE</span>
+              <span class="stat-value" id="disk-usage">--%</span>
+            </div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-icon load-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">LOAD AVG</span>
+              <span class="stat-value" id="load-avg">--</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

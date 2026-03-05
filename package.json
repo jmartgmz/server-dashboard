@@ -1,0 +1,15 @@
+{
+  "name": "server-dashboard",
+  "version": "1.0.0",
+  "description": "Localhost server dashboard with system stats and service bookmarks",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-ical": "^0.25.4",
+    "systeminformation": "^5.21.0"
+  }
+}
