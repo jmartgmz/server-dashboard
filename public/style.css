@@ -1307,8 +1307,13 @@ a {
   }
 
   .header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+
+  .header-image-box {
+    height: 64px;
+    max-width: 160px;
   }
 
   .time {
@@ -1330,10 +1335,13 @@ a {
 
   .cal-container {
     grid-template-columns: 1fr;
+    height: auto;
+    gap: 20px;
   }
 
   .cal-agenda {
     max-height: none;
+    min-height: 250px;
   }
 }
 
