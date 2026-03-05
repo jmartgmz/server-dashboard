@@ -562,8 +562,14 @@
   renderCalendar();
   renderAgenda();
 
-  // Then fetch events in the background
-  fetchEvents();
+  // Initialize feeds and fetch events
+  async function initCalendar() {
+    await loadFeeds();
+    await fetchEvents();
+  }
+
+  initCalendar();
+
   // Refresh events every 60 seconds
   setInterval(fetchEvents, 60000);
 })();
