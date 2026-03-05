@@ -452,23 +452,24 @@
     calAddFeed.disabled = true;
 
     try {
-      const res = await fetch("/api/calendar/feeds", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          url,
-          name: feedNameInput.value.trim() || "Calendar",
-          color: feedColorInput.value,
-        }),
-      });
+      const id =
+        Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      const newFeed = {
+        id,
+        url,
+        name: feedNameInput.value.trim() || "Calendar",
+        color: feedColorInput.value || "#3db4f2",
+      };
 
-      if (res.ok) {
-        feedUrlInput.value = "";
-        feedNameInput.value = "";
-        feedColorInput.value = "#3db4f2";
-        await loadFeeds();
-        await fetchEvents();
-      }
+      calFeeds.push(newFeed);
+      localStorage.setItem("calendar-feeds", JSON.stringify(calFeeds));
+
+      feedUrlInput.value = "";
+      feedNameInput.value = "";
+      feedColorInput.value = "#3db4f2";
+
+      renderFeedList();
+      await fetchEvents();
     } catch (err) {
       console.error("Failed to add feed:", err);
     }
@@ -479,8 +480,9 @@
 
   async function deleteFeed(id) {
     try {
-      await fetch(`/api/calendar/feeds/${id}`, { method: "DELETE" });
-      await loadFeeds();
+      calFeeds = calFeeds.filter((f) => f.id !== id);
+      localStorage.setItem("calendar-feeds", JSON.stringify(calFeeds));
+      renderFeedList();
       await fetchEvents();
     } catch (err) {
       console.error("Failed to delete feed:", err);
@@ -489,11 +491,12 @@
 
   async function loadFeeds() {
     try {
-      const res = await fetch("/api/calendar/feeds");
-      calFeeds = await res.json();
+      const stored = localStorage.getItem("calendar-feeds");
+      calFeeds = stored ? JSON.parse(stored) : [];
       renderFeedList();
     } catch (err) {
       console.error("Failed to load feeds:", err);
+      calFeeds = [];
     }
   }
 
@@ -533,7 +536,18 @@
   // ── Fetch Events ──
   async function fetchEvents() {
     try {
-      const res = await fetch("/api/calendar/events");
+      if (calFeeds.length === 0) {
+        calEvents = [];
+        renderCalendar();
+        renderAgenda();
+        return;
+      }
+
+      const res = await fetch("/api/calendar/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ feeds: calFeeds }),
+      });
       calEvents = await res.json();
       renderCalendar();
       renderAgenda();

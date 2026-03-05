@@ -10,25 +10,6 @@ const PORT = 6767;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-const FEEDS_FILE = path.join(__dirname, "calendar-feeds.json");
-
-// Load saved feeds
-function loadFeeds() {
-  try {
-    if (fs.existsSync(FEEDS_FILE)) {
-      return JSON.parse(fs.readFileSync(FEEDS_FILE, "utf8"));
-    }
-  } catch (e) {
-    console.error("Error loading feeds:", e);
-  }
-  return [];
-}
-
-// Save feeds
-function saveFeeds(feeds) {
-  fs.writeFileSync(FEEDS_FILE, JSON.stringify(feeds, null, 2));
-}
-
 // System stats API
 app.get("/api/stats", async (req, res) => {
   try {
@@ -58,35 +39,12 @@ app.get("/api/stats", async (req, res) => {
   }
 });
 
-// Get saved feeds
-app.get("/api/calendar/feeds", (req, res) => {
-  res.json(loadFeeds());
-});
-
-// Add a feed
-app.post("/api/calendar/feeds", (req, res) => {
-  const { url, name, color } = req.body;
-  if (!url) return res.status(400).json({ error: "URL is required" });
-  const feeds = loadFeeds();
-  const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-  const feed = { id, url, name: name || "Calendar", color: color || "#3db4f2" };
-  feeds.push(feed);
-  saveFeeds(feeds);
-  res.json(feed);
-});
-
-// Delete a feed
-app.delete("/api/calendar/feeds/:id", (req, res) => {
-  let feeds = loadFeeds();
-  feeds = feeds.filter((f) => f.id !== req.params.id);
-  saveFeeds(feeds);
-  res.json({ ok: true });
-});
-
-// Fetch events from all feeds
-app.get("/api/calendar/events", async (req, res) => {
-  const feeds = loadFeeds();
-  if (feeds.length === 0) return res.json([]);
+// Fetch events from client-provided feeds
+app.post("/api/calendar/events", async (req, res) => {
+  const { feeds } = req.body;
+  if (!feeds || !Array.isArray(feeds) || feeds.length === 0) {
+    return res.json([]);
+  }
 
   try {
     const allEvents = [];
