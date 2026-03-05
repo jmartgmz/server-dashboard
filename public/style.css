@@ -34,9 +34,9 @@
   --stat-ram-border: rgba(59, 130, 196, 0.2);
   --stat-ram-color: #3b82c4;
 
-  --stat-temp-bg: rgba(239, 68, 68, 0.08);
-  --stat-temp-border: rgba(239, 68, 68, 0.2);
-  --stat-temp-color: #ef4444;
+  --stat-temp-bg: rgba(79, 126, 232, 0.08);
+  --stat-temp-border: rgba(79, 126, 232, 0.2);
+  --stat-temp-color: #4f7ee8;
 
   --section-label: #3b7dd8;
   --section-line: rgba(59, 125, 216, 0.25);
@@ -90,9 +90,9 @@
   --stat-ram-border: rgba(61, 180, 242, 0.2);
   --stat-ram-color: #3db4f2;
 
-  --stat-temp-bg: rgba(239, 68, 68, 0.08);
-  --stat-temp-border: rgba(239, 68, 68, 0.2);
-  --stat-temp-color: #ef4444;
+  --stat-temp-bg: rgba(61, 180, 242, 0.08);
+  --stat-temp-border: rgba(61, 180, 242, 0.2);
+  --stat-temp-color: #3db4f2;
 
   /* Section labels use the AniList blue */
   --section-label: #3db4f2;
