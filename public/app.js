@@ -52,34 +52,56 @@
   const ramUsageEl = document.getElementById("ram-usage");
   const coreTempEl = document.getElementById("core-temp");
 
+  const GAUGE_CIRCUMFERENCE = 97.4; // 2 * π * 15.5
+
+  function setGauge(gaugeId, percent) {
+    const gauge = document.getElementById(gaugeId);
+    if (!gauge) return;
+    const clamped = Math.max(0, Math.min(100, percent));
+    const offset = GAUGE_CIRCUMFERENCE * (1 - clamped / 100);
+    gauge.style.strokeDashoffset = offset;
+  }
+
   async function fetchStats() {
     try {
       const res = await fetch("/api/stats");
       if (!res.ok) throw new Error("Network error");
       const data = await res.json();
 
-      // Animate number changes
+      // CPU
       animateValue(cpuLoadEl, data.cpuLoad, "%");
+      setGauge("cpu-gauge", data.cpuLoad);
+
+      // RAM
       animateValue(ramUsageEl, data.ramUsage, "%");
+      setGauge("ram-gauge", data.ramUsage);
+
+      // Core Temp
       if (data.coreTemp !== null) {
         animateValue(coreTempEl, data.coreTemp, "°C");
+        setGauge("temp-gauge", data.coreTemp); // 0-100°C scale
       } else {
         coreTempEl.textContent = "N/A";
       }
 
-      // New Stats
-      if (data.uptime) {
-        document.getElementById("uptime").textContent = formatUptime(
-          data.uptime,
-        );
-      }
+      // Disk
       if (data.diskUsage !== null) {
         animateValue(
           document.getElementById("disk-usage"),
           data.diskUsage,
           "%",
         );
+        setGauge("disk-gauge", data.diskUsage);
       }
+
+      // Uptime
+      if (data.uptime) {
+        document.getElementById("uptime").textContent = formatUptime(
+          data.uptime,
+        );
+      }
+
+      // Load Avg
       if (data.loadAvg !== undefined) {
         document.getElementById("load-avg").textContent =
           data.loadAvg.toFixed(2);
@@ -141,10 +163,10 @@
         if (statusEl) {
           if (data.status === "online") {
             statusEl.innerHTML = '<span class="status-dot"></span>RUNNING';
-            statusEl.style.color = "var(--accent-green)";
+            statusEl.style.color = "var(--accent-teal)";
             const dot = statusEl.querySelector(".status-dot");
-            dot.style.background = "var(--accent-green)";
-            dot.style.boxShadow = "0 0 6px rgba(74, 222, 128, 0.5)";
+            dot.style.background = "var(--accent-teal)";
+            dot.style.boxShadow = "0 0 6px rgba(59, 130, 196, 0.5)";
             dot.style.animation = "pulse-dot 2s ease-in-out infinite";
           } else {
             statusEl.innerHTML = '<span class="status-dot"></span>OFFLINE';
@@ -166,24 +188,14 @@
 
   // ── Search / Quick Launch ──────────────
   const searchInput = document.getElementById("search-input");
-  const cards = document.querySelectorAll(".service-card");
-  const sections = document.querySelectorAll(".bookmark-section");
 
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase().trim();
-
-    cards.forEach((card) => {
-      const name = card.getAttribute("data-name").toLowerCase();
-      card.classList.toggle("hidden", !name.includes(query));
-    });
-
-    // Hide sections where all cards are hidden
-    sections.forEach((section) => {
-      const visibleCards = section.querySelectorAll(
-        ".service-card:not(.hidden)",
-      );
-      section.style.display = visibleCards.length === 0 ? "none" : "";
-    });
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const query = searchInput.value.trim();
+      if (query) {
+        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      }
+    }
   });
 
   // ⌘K shortcut to focus search
@@ -213,30 +225,6 @@
     document.body.classList.toggle("dark");
     const isDark = document.body.classList.contains("dark");
     localStorage.setItem("dashboard-theme", isDark ? "dark" : "light");
-
-    // Swap icon
-    const svg = themeToggle.querySelector("svg");
-    if (isDark) {
-      svg.innerHTML =
-        '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
-    } else {
-      svg.innerHTML = '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
-    }
-  });
-
-  // ── Entry Animation ────────────────────
-  const allCards = document.querySelectorAll(".service-card");
-  allCards.forEach((card, i) => {
-    card.style.opacity = "0";
-    card.style.transform = "translateY(16px)";
-    card.style.transition = "opacity 0.4s ease, transform 0.4s ease";
-    setTimeout(
-      () => {
-        card.style.opacity = "1";
-        card.style.transform = "translateY(0)";
-      },
-      80 + i * 40,
-    );
   });
 
   // ── Calendar Widget ────────────────────
@@ -313,7 +301,7 @@
 
     // Next month days (fill to 42 cells = 6 rows)
     const totalCells = calDays.children.length;
-    const remaining = (totalCells <= 35 ? 35 : 42) - totalCells;
+    const remaining = 42 - totalCells;
     for (let d = 1; d <= remaining; d++) {
       calDays.appendChild(createDayEl(d, true, null));
     }
@@ -331,19 +319,7 @@
     numSpan.textContent = num;
     div.appendChild(numSpan);
 
-    // Event dots
-    const dotsDiv = document.createElement("div");
-    dotsDiv.className = "cal-day-dots";
-    if (events && events.length > 0) {
-      const uniqueColors = [...new Set(events.map((e) => e.feedColor))];
-      uniqueColors.slice(0, 3).forEach((color) => {
-        const dot = document.createElement("span");
-        dot.className = "cal-day-dot";
-        dot.style.background = color;
-        dotsDiv.appendChild(dot);
-      });
-    }
-    div.appendChild(dotsDiv);
+    // Event dots removed by user request
 
     return div;
   }

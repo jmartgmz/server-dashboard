@@ -46,7 +46,7 @@ app.get("/api/stats", async (req, res) => {
 
     res.json({
       cpuLoad: Math.round(cpuLoad.currentLoad),
-      ramUsage: Math.round((mem.used / mem.total) * 100),
+      ramUsage: Math.round(((mem.total - mem.available) / mem.total) * 100),
       coreTemp: cpuTemp.main !== null ? Math.round(cpuTemp.main) : null,
       uptime: time.uptime,
       diskUsage: rootFs ? Math.round(rootFs.use) : null,
