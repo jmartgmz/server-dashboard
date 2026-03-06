@@ -56,6 +56,20 @@
   transition: stroke-dashoffset 0.6s ease;
 }
 
+/* Gauge colors per stat type */
+.stat-card[data-stat="cpu"] .gauge-fill {
+  stroke: var(--stat-cpu-color);
+}
+.stat-card[data-stat="ram"] .gauge-fill {
+  stroke: var(--stat-ram-color);
+}
+.stat-card[data-stat="disk"] .gauge-fill {
+  stroke: var(--accent-purple);
+}
+.stat-card[data-stat="temp"] .gauge-fill {
+  stroke: var(--stat-temp-color);
+}
+
 .gauge-value {
   position: absolute;
   inset: 0;
