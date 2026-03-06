@@ -227,6 +227,35 @@
     localStorage.setItem("dashboard-theme", isDark ? "dark" : "light");
   });
 
+  // ── SPA Navigation ───────────────────────
+  const navOverlayBtn = document.getElementById("nav-overlay-btn");
+  const navOverlayIcon = document.getElementById("nav-overlay-icon");
+  const viewHome = document.getElementById("view-home");
+  const viewPage2 = document.getElementById("view-page2");
+
+  if (navOverlayBtn && navOverlayIcon && viewHome && viewPage2) {
+    let isPage2Visible = false;
+
+    navOverlayBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevents the image box click (theme toggle) from firing
+      isPage2Visible = !isPage2Visible;
+
+      if (isPage2Visible) {
+        viewHome.style.display = "none";
+        viewPage2.style.display = "flex"; // Assuming Flex layout from bookmarks
+        navOverlayIcon.innerHTML =
+          '<polyline points="15 18 9 12 15 6"></polyline>'; // Left chevron
+        navOverlayBtn.setAttribute("aria-label", "Go to Home");
+      } else {
+        viewPage2.style.display = "none";
+        viewHome.style.display = "flex";
+        navOverlayIcon.innerHTML =
+          '<polyline points="9 18 15 12 9 6"></polyline>'; // Right chevron
+        navOverlayBtn.setAttribute("aria-label", "Toggle Page 2");
+      }
+    });
+  }
+
   // ── Calendar Widget ────────────────────
   const calDays = document.getElementById("cal-days");
   const calMonthLabel = document.getElementById("cal-month-label");

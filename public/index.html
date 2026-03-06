@@ -27,6 +27,11 @@
 
         <div class="header-image-box" id="theme-toggle" role="button" aria-label="Toggle dark mode" tabindex="0">
           <img src="bg.png" alt="Dashboard Graphic" />
+          <button id="nav-overlay-btn" class="nav-overlay-btn" aria-label="Toggle Page 2">
+            <svg id="nav-overlay-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
       </header>
 
@@ -59,8 +64,8 @@
         </div>
       </div>
 
-      <!-- Bookmark Sections -->
-      <main class="bookmarks" id="bookmarks">
+      <!-- Main Home View -->
+      <main class="bookmarks" id="view-home">
         <!-- CALENDAR -->
         <section class="calendar-widget" id="calendar-widget">
           <div class="section-header">
@@ -210,41 +215,7 @@
           </div>
         </div>
 
-        <!-- RSS WIDGET -->
-        <!-- RSS WIDGET -->
-        <section class="rss-widget" id="rss-widget">
-          <div class="rss-grid-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-            <!-- Anime Feed -->
-            <div class="rss-column">
-              <div class="section-header">
-                <span class="section-label">RECENTLY WATCHED ANIME</span>
-                <div class="section-line"></div>
-              </div>
-              <div class="rss-container" id="rss-anime-container">
-                <div class="rss-empty-state" id="rss-anime-empty" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; color: var(--text-muted);">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3; margin-bottom: 12px;"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
-                  <p>Loading anime...</p>
-                </div>
-                <div id="rss-anime-list" class="rss-list"></div>
-              </div>
-            </div>
-
-            <!-- Manga Feed -->
-            <div class="rss-column">
-              <div class="section-header">
-                <span class="section-label">RECENTLY READ MANGA</span>
-                <div class="section-line"></div>
-              </div>
-              <div class="rss-container" id="rss-manga-container">
-                <div class="rss-empty-state" id="rss-manga-empty" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; color: var(--text-muted);">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3; margin-bottom: 12px;"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
-                  <p>Loading manga...</p>
-                </div>
-                <div id="rss-manga-list" class="rss-list"></div>
-              </div>
-            </div>
-          </div>
-        </section>
+        
 
         <!-- BOOKMARKS -->
         <div class="bookmarks-main-header">
@@ -531,7 +502,42 @@
             </a>
           </div>
         </section>
-        <section class="services-section">
+        
+      </main>
+
+      <!-- Page 2 View (Hidden by default) -->
+      <main class="bookmarks" id="view-page2" style="display: none;">
+<section class="rss-widget" id="rss-widget">
+          <div class="section-header">
+            <span class="section-label">MANGA/ANIME FEED</span>
+            <div class="section-line"></div>
+          </div>
+          <div class="rss-grid-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <!-- Anime Feed -->
+            <div class="rss-column">
+              <div class="rss-container" id="rss-anime-container">
+                <div class="rss-empty-state" id="rss-anime-empty" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; color: var(--text-muted);">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3; margin-bottom: 12px;"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                  <p>Loading anime...</p>
+                </div>
+                <div id="rss-anime-list" class="rss-list"></div>
+              </div>
+            </div>
+
+            <!-- Manga Feed -->
+            <div class="rss-column">
+              <div class="rss-container" id="rss-manga-container">
+                <div class="rss-empty-state" id="rss-manga-empty" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; color: var(--text-muted);">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3; margin-bottom: 12px;"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                  <p>Loading manga...</p>
+                </div>
+                <div id="rss-manga-list" class="rss-list"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<section class="services-section">
           <div class="section-header">
             <span class="section-label">SERVICES</span>
             <div class="section-line"></div>
@@ -721,6 +727,12 @@
             </div>
           </div>
         </section>
+
+
+
+
+
+
       </main>
     </div>
 
