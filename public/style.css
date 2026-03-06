@@ -668,11 +668,11 @@ a {
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 1.2px;
-  color: var(--text-muted);
+  color: var(--text-primary);
 }
 
 .dark .bookmark-section .section-label {
-  color: var(--text-muted);
+  color: var(--text-primary);
 }
 
 .section-line {
@@ -693,6 +693,7 @@ a {
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  color: var(--text-muted);
 }
 
 .bookmark-section .service-card::before {
@@ -725,6 +726,7 @@ a {
 
 .bookmark-section .card-name {
   margin-bottom: 0;
+  color: var(--text-muted);
 }
 
 .bookmark-section .card-status {
