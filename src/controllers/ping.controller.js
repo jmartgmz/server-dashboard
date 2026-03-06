@@ -1,7 +1,4 @@
-const express = require("express");
-const router = express.Router();
-
-router.get("/", async (req, res) => {
+const pingService = async (req, res) => {
   const targetUrl = req.query.url;
   if (!targetUrl) return res.status(400).json({ error: "Missing URL" });
 
@@ -26,6 +23,8 @@ router.get("/", async (req, res) => {
   } catch (err) {
     res.json({ status: "offline", error: err.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  pingService,
+};

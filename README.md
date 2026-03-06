@@ -10,6 +10,23 @@ A beautiful, lightweight personal server dashboard for Ubuntu, featuring real-ti
 - **Glassmorphism Design**: Modern, premium UI with smooth animations, dark/light mode, and responsive layout.
 - **Quick Launch**: Integrated search bar (accessible via `Ctrl+K`) to quickly filter and find services.
 
+## Repository Structure
+
+```text
+server-dashboard/
+├── src/
+│   ├── app.js               # Express application and middlewares
+│   ├── server.js            # Server entry point
+│   ├── controllers/         # Business logic for endpoints (MVC)
+│   └── routes/              # Express API route bindings
+├── public/
+│   ├── assets/              # Static media: images, icons, etc.
+│   ├── css/                 # Stylesheets, broken down into modules
+│   ├── js/                  # Vanilla JS frontend scripts
+│   └── index.html           # Main dashboard template
+└── package.json
+```
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) (v14 or higher recommended)

@@ -1,8 +1,6 @@
-const express = require("express");
 const ical = require("node-ical");
-const router = express.Router();
 
-router.post("/", async (req, res) => {
+const fetchEvents = async (req, res) => {
   const { feeds } = req.body;
   if (!feeds || !Array.isArray(feeds) || feeds.length === 0) {
     return res.json([]);
@@ -55,6 +53,8 @@ router.post("/", async (req, res) => {
     console.error("Error fetching calendar events:", err);
     res.status(500).json({ error: "Failed to fetch events" });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  fetchEvents,
+};

@@ -1,10 +1,7 @@
-const express = require("express");
 const Parser = require("rss-parser");
-const router = express.Router();
-
 const parser = new Parser();
 
-router.get("/", async (req, res) => {
+const fetchRss = async (req, res) => {
   try {
     const targetUrl = req.query.url;
     if (!targetUrl) return res.status(400).json({ error: "Missing URL" });
@@ -102,6 +99,8 @@ router.get("/", async (req, res) => {
     console.error("RSS parse err:", error);
     res.status(500).json({ error: "Failed to parse RSS." });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  fetchRss,
+};

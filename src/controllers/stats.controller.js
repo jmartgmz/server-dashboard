@@ -1,8 +1,6 @@
-const express = require("express");
 const si = require("systeminformation");
-const router = express.Router();
 
-router.get("/", async (req, res) => {
+const getStats = async (req, res) => {
   try {
     const [cpuLoad, mem, cpuTemp, time, disk, load] = await Promise.all([
       si.currentLoad(),
@@ -27,6 +25,8 @@ router.get("/", async (req, res) => {
     console.error("Error fetching system stats:", err);
     res.status(500).json({ error: "Failed to fetch system stats" });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getStats,
+};
