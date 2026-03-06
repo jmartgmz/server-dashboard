@@ -1,0 +1,126 @@
+/* ========================================
+   RSS Widget
+   ======================================== */
+
+.rss-widget {
+  margin-bottom: 32px;
+}
+
+.rss-container {
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  min-height: 120px;
+}
+
+.dark .rss-container {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 900px) {
+  .rss-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.rss-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 420px;
+  overflow-y: auto;
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.rss-list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.rss-item {
+  flex-shrink: 0;
+  background: transparent;
+  border-radius: var(--radius-md);
+  border: 1.5px solid transparent;
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+.rss-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  text-decoration: none;
+  border-radius: inherit;
+}
+
+.rss-cover {
+  flex-shrink: 0;
+  width: 48px;
+  height: 68px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--card-border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.rss-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rss-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.rss-item:hover {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  transform: translateY(-2px);
+}
+
+.dark .rss-item:hover {
+  background: rgba(61, 180, 242, 0.08); /* AniList tint */
+  border-color: rgba(61, 180, 242, 0.2);
+}
+
+.rss-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  line-height: 1.4;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+.rss-item:hover .rss-title {
+  color: var(--accent-purple);
+}
+
+.rss-activity {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.rss-meta {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}

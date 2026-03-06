@@ -1,0 +1,224 @@
+/* ========================================
+   Dashboard Container
+   ======================================== */
+
+.dashboard {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 32px 60px;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.clock-section {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.time {
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.date {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  letter-spacing: 0.2px;
+}
+
+/* Header Image Widget & Overlay Nav */
+.header-image-box {
+  position: relative;
+  flex: 1;
+  max-width: 280px;
+  height: 80px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1.5px solid var(--card-border);
+  box-shadow: 0 4px 12px var(--glass-shadow);
+  display: flex;
+  cursor: pointer;
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.header-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 39%;
+  transition: filter 0.25s ease;
+}
+
+.nav-overlay-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #fff;
+  transition: all 0.2s ease;
+  z-index: 2;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.nav-overlay-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--accent-purple);
+}
+
+.header-image-box:hover img {
+  filter: brightness(0.75);
+}
+
+/* Standalone Back Button (Page 2) */
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: 12px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  color: var(--text-muted);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  transform: translateX(-2px);
+  color: var(--accent-purple);
+  border-color: var(--accent-purple);
+  box-shadow: 0 4px 12px var(--card-hover-shadow);
+}
+
+/* ========================================
+   Search Bar
+   ======================================== */
+
+.search-container {
+  margin-bottom: 36px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--search-bg);
+  border: 1.5px solid var(--search-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 12px var(--glass-shadow);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.search-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+#search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  outline: none;
+}
+
+#search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-hints {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.kbd-hint {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  letter-spacing: 0.5px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  background: var(--glass-bg);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 24px 16px 40px;
+  }
+
+  .header {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+
+  .header-image-box {
+    height: 64px;
+    max-width: 160px;
+  }
+
+  .time {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .time {
+    font-size: 2rem;
+  }
+}

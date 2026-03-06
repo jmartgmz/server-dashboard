@@ -1,0 +1,236 @@
+/* ========================================
+   Base & Reset
+   ======================================== */
+
+:root {
+  /* Colors — Blue color scheme */
+  --bg-gradient-1: #e4edf8;
+  --bg-gradient-2: #dce6f4;
+  --bg-gradient-3: #d6e3f2;
+  --bg-gradient-4: #e0eaf6;
+  --bg-gradient-5: #d2e0f0;
+
+  --glass-bg: rgba(240, 246, 255, 0.6);
+  --glass-border: rgba(210, 228, 250, 0.7);
+  --glass-shadow: rgba(140, 170, 220, 0.15);
+
+  --card-bg: rgba(240, 248, 255, 0.65);
+  --card-border: rgba(190, 215, 245, 0.6);
+  --card-hover-shadow: rgba(80, 130, 200, 0.18);
+
+  --text-primary: #1a2236;
+  --text-secondary: #4a5a7a;
+  --text-muted: #7889a8;
+
+  --accent-teal: #3b82c4;
+  --accent-green: #4ade80;
+  --accent-purple: #4f7ee8;
+
+  --stat-cpu-bg: rgba(79, 126, 232, 0.08);
+  --stat-cpu-border: rgba(79, 126, 232, 0.2);
+  --stat-cpu-color: #4f7ee8;
+
+  --stat-ram-bg: rgba(59, 130, 196, 0.08);
+  --stat-ram-border: rgba(59, 130, 196, 0.2);
+  --stat-ram-color: #3b82c4;
+
+  --stat-temp-bg: rgba(79, 126, 232, 0.08);
+  --stat-temp-border: rgba(79, 126, 232, 0.2);
+  --stat-temp-color: #4f7ee8;
+
+  --section-label: #3b7dd8;
+  --section-line: rgba(59, 125, 216, 0.25);
+
+  --search-bg: rgba(240, 248, 255, 0.65);
+  --search-border: rgba(190, 215, 245, 0.5);
+
+  --font-family:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 6px;
+  --radius-lg: 6px;
+  --radius-xl: 6px;
+}
+
+/* Dark theme — AniList inspired */
+.dark {
+  /* AniList signature deep navy backgrounds */
+  --bg-gradient-1: #0b1622;
+  --bg-gradient-2: #0f1a2a;
+  --bg-gradient-3: #0b1622;
+  --bg-gradient-4: #101c2e;
+  --bg-gradient-5: #0b1622;
+
+  /* Elevated surfaces — opaque, no glassmorphism blur needed */
+  --glass-bg: #151f2e;
+  --glass-border: transparent;
+  --glass-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Card surfaces — slightly elevated from the page */
+  --card-bg: #151f2e;
+  --card-border: transparent;
+  --card-hover-shadow: rgba(61, 180, 242, 0.08);
+
+  /* Typography — clean white hierarchy */
+  --text-primary: #d5e0f0;
+  --text-secondary: #8ba0b8;
+  --text-muted: #5c7080;
+
+  /* AniList blue accent */
+  --accent-teal: #3db4f2;
+  --accent-green: #4ade80;
+  --accent-purple: #3db4f2;
+
+  /* Stat badges — subtle tinted backgrounds */
+  --stat-cpu-bg: rgba(61, 180, 242, 0.08);
+  --stat-cpu-border: rgba(61, 180, 242, 0.2);
+  --stat-cpu-color: #3db4f2;
+
+  --stat-ram-bg: rgba(61, 180, 242, 0.08);
+  --stat-ram-border: rgba(61, 180, 242, 0.2);
+  --stat-ram-color: #3db4f2;
+
+  --stat-temp-bg: rgba(61, 180, 242, 0.08);
+  --stat-temp-border: rgba(61, 180, 242, 0.2);
+  --stat-temp-color: #3db4f2;
+
+  /* Section labels use the AniList blue */
+  --section-label: #3db4f2;
+  --section-line: rgba(61, 180, 242, 0.15);
+
+  /* Search */
+  --search-bg: #151f2e;
+  --search-border: transparent;
+}
+
+/* AniList-style dark mode overrides */
+.dark body {
+  background: #0b1622;
+}
+
+.dark .service-card {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.dark .service-card:hover {
+  background: #1a2940;
+  border-color: rgba(61, 180, 242, 0.3);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+.dark .service-card:hover .card-icon {
+  color: #3db4f2;
+}
+
+.dark .service-card::before {
+  background: linear-gradient(
+    135deg,
+    rgba(61, 180, 242, 0.04) 0%,
+    rgba(74, 222, 128, 0.02) 100%
+  );
+}
+
+.dark .search-bar {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.dark .search-bar:focus-within {
+  border-color: #3db4f2;
+  box-shadow: 0 2px 16px rgba(61, 180, 242, 0.1);
+}
+
+.dark .theme-toggle:hover {
+  color: #3db4f2;
+  border-color: #3db4f2;
+}
+
+.dark .kbd-hint {
+  background: #1a2940;
+  border-color: #243447;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #243447;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #2d4055;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at 20% 20%,
+      var(--bg-gradient-1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      var(--bg-gradient-5) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 50% 80%,
+      var(--bg-gradient-4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      var(--bg-gradient-3) 0%,
+      transparent 50%
+    ),
+    linear-gradient(
+      135deg,
+      var(--bg-gradient-2) 0%,
+      var(--bg-gradient-1) 50%,
+      var(--bg-gradient-5) 100%
+    );
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ========================================
+   Scrollbar
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
