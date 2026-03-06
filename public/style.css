@@ -654,8 +654,9 @@ a {
 }
 
 .bookmark-section .cards-grid .service-card {
-  flex: 0 1 110px; /* Don't grow, can shrink, basis 110px */
-  max-width: 110px;
+  flex: 0 1 120px;
+  max-width: 140px;
+  padding: 16px 12px;
 }
 /* ========================================
    Service Cards
