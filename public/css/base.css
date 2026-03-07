@@ -178,6 +178,8 @@ html {
 body {
   font-family: var(--font-family);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background:
     radial-gradient(
       ellipse at 20% 20%,
