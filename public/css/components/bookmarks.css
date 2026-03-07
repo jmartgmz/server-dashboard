@@ -1,10 +1,11 @@
 /* ========================================
-   Bookmark Sections
+   Bookmark Sections (Minimalist List)
    ======================================== */
 
 .bookmarks {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   gap: 16px 24px;
 }
 
@@ -16,40 +17,17 @@
   flex-shrink: 0;
 }
 
-.services-section {
-  margin-top: 24px;
-}
-
-.services-section .cards-grid {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-@media (max-width: 768px) {
-  .services-section .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .services-section .cards-grid .service-card:nth-child(3) {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: calc(50% - 5px);
-  }
-}
-
 .bookmark-section {
-  flex: 1 1 calc(33.333% - 16px);
-  min-width: 240px;
-  background: var(--card-bg);
-  border: 1.5px solid var(--card-border);
-  border-radius: var(--radius-lg);
-  padding: 10px 16px 8px; /* Reduced top/bottom padding */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  flex: 1 1 calc(25% - 18px); /* 4 columns for lists */
+  min-width: 200px;
+  background: transparent;
+  border: none;
+  padding: 0; /* Remove horizontal padding for perfect alignment with calendar */
 }
 
 .dark .bookmark-section {
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  background: transparent;
+  box-shadow: none;
 }
 
 .section-header {
@@ -60,8 +38,7 @@
 }
 
 .bookmark-section .section-header {
-  justify-content: center;
-  margin-bottom: 8px; /* Reduced margin */
+  margin-bottom: 12px;
 }
 
 .bookmark-section .section-header::before,
@@ -79,14 +56,14 @@
 }
 
 .bookmark-section .section-label {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 1.2px;
-  color: var(--text-primary);
+  letter-spacing: 1px;
+  color: var(--text-secondary);
 }
 
 .dark .bookmark-section .section-label {
-  color: var(--text-primary);
+  color: #7b8ea3;
 }
 
 .section-line {
@@ -99,64 +76,75 @@
   display: none;
 }
 
-/* Bookmark cards overrides for tighter layout */
-.bookmark-section .service-card {
-  padding: 6px 10px;
-  background: transparent;
-  border: 1.5px solid transparent;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  color: var(--text-muted);
-}
+/* ========================================
+   Minimalist List Items
+   ======================================== */
 
-.bookmark-section .service-card::before {
-  display: none;
-}
-
-.bookmark-section .service-card:hover {
-  transform: translateY(-2px);
-  box-shadow: none;
-  background: var(--glass-bg);
-  border-color: var(--glass-border);
-}
-
-.dark .bookmark-section .service-card:hover {
-  background: rgba(61, 180, 242, 0.08); /* subtle anilist blue tint */
-  border-color: rgba(61, 180, 242, 0.2);
-  box-shadow: none;
-}
-
-.bookmark-section .card-icon {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 4px;
-}
-
-.bookmark-section .card-icon svg {
-  width: 24px;
-  height: 24px;
-}
-
-.bookmark-section .card-name {
-  margin-bottom: 0;
-  color: var(--text-muted);
-}
-
-.bookmark-section .card-status {
-  display: none;
-}
-
-/* Override for bookmark section cards to center wrapped orphans */
-.bookmark-section .cards-grid {
+.bookmark-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px; /* Reduced gap between icons */
+  flex-direction: column;
+  gap: 6px;
 }
 
-.bookmark-section .cards-grid .service-card {
-  flex: 0 1 120px;
-  max-width: 140px;
-  padding: 16px 12px;
+.bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+}
+
+.bookmark-item:hover {
+  background: rgba(79, 126, 232, 0.08);
+  border-left-color: var(--accent-purple);
+  transform: translateX(3px);
+}
+
+.dark .bookmark-item:hover {
+  background: rgba(61, 180, 242, 0.08);
+  border-left-color: var(--accent-teal);
+}
+
+.bookmark-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.bookmark-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.bookmark-item:hover .bookmark-icon {
+  color: var(--accent-purple);
+}
+
+.dark .bookmark-item:hover .bookmark-icon {
+  color: var(--accent-teal);
+}
+
+.bookmark-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 768px) {
+  .bookmark-section {
+    flex: 1 1 calc(50% - 12px); /* 2 columns on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .bookmark-section {
+    flex: 1 1 100%; /* 1 column on small screens */
+  }
 }
