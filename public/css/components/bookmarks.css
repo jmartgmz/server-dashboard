@@ -20,14 +20,19 @@
 .bookmark-section {
   flex: 1 1 calc(25% - 18px); /* 4 columns for lists */
   min-width: 200px;
-  background: transparent;
-  border: none;
-  padding: 0; /* Remove horizontal padding for perfect alignment with calendar */
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
 }
 
 .dark .bookmark-section {
-  background: transparent;
-  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .section-header {
@@ -90,24 +95,20 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: var(--radius-sm);
   background: transparent;
   color: var(--text-primary);
   text-decoration: none;
   transition: all 0.2s ease;
-  border-left: 2px solid transparent;
 }
 
 .bookmark-item:hover {
   background: rgba(79, 126, 232, 0.08);
-  border-left-color: var(--accent-purple);
-  transform: translateX(3px);
 }
 
 .dark .bookmark-item:hover {
   background: rgba(61, 180, 242, 0.08);
-  border-left-color: var(--accent-teal);
 }
 
 .bookmark-icon {
