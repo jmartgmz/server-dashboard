@@ -12,11 +12,6 @@
 
 @media (max-width: 768px) {
   .services-section .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .services-section .cards-grid .service-card:nth-child(3) {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: calc(50% - 5px);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
