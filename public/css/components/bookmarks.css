@@ -119,6 +119,10 @@
   transition: color 0.2s ease;
 }
 
+.bookmark-item[data-name="RetroAchieve"] .bookmark-icon {
+  transform: translate(-1px, -1px);
+}
+
 .bookmark-icon svg {
   width: 18px;
   height: 18px;
