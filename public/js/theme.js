@@ -6,15 +6,13 @@
   "use strict";
   const themeToggle = document.getElementById("theme-toggle");
   const savedTheme = localStorage.getItem("dashboard-theme");
+  const isDark = savedTheme === "light" ? false : true; // Default to dark
 
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark");
-  }
-
+  // DOM is already updated by inline script in head, just set up toggle
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      const isDark = document.body.classList.contains("dark");
+      document.documentElement.classList.toggle("dark");
+      const isDark = document.documentElement.classList.contains("dark");
       localStorage.setItem("dashboard-theme", isDark ? "dark" : "light");
     });
   }
